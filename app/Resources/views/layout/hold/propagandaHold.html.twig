@@ -1,0 +1,36 @@
+<style type='text/css'>
+    
+    .propagandaContainer {
+        padding-top: 4%;
+        margin-left: 4%;
+        margin-right: 4%;
+    }
+    
+    .propagandaImageContainer {
+    }
+    
+    .propagandaImage{
+        width: 100%;
+    }
+    
+    .propagandaTitle {
+        font-size: 24px;
+        color: #729fcf;
+        font-weight: bold;
+    }
+    
+    .propagandaLink {
+        font-size: 16px;
+        color: #729fcf;
+    }
+</style>
+<div class="propagandaContainer">
+    <div class="propagandaImageContainer">
+        <a href="{{propaganda.link}}"><img class="propagandaImage" src="{{ urlPropagandaImage}}"/></a>
+    </div>
+    <div class="propagandaContentContainer">
+        <br>
+        <a href='{{propaganda.link}}' class="propagandaTitle">{{propaganda.title}}</a><br>
+        <a href='{{propaganda.link}}' class="propagandaLink">{{propaganda.link}}</a>
+    </div>
+</div>

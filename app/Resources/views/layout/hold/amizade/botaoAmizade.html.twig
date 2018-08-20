@@ -1,0 +1,6 @@
+<div class="botaoPesquisa">
+    <form name="formAjax{{item.id}}" id="formAjax{{item.id}}" method="post" action = "{{path('criarConexao')}}">
+        <input type="hidden" name="destino" value="{{item.id}}">				
+        <button id="botao{{item.id}}" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>{{item.descricaoStatusConexao}}</button>
+    </form>
+</div>	

@@ -1,0 +1,121 @@
+<script>
+    $(document).on('click', '#curtirSpan', function (e) {
+        e.preventDefault();
+
+        var formData = new FormData();
+        formData.append('action', '{{action.id}}');
+
+        $.ajax({
+            type: "POST",
+            data: formData,
+            url: "{{ path('curtirAjax') }}",
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                $("#curtirSpan").css({'font-weight': 'bold'});
+            }
+        });
+    });
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $('#comments-container{{action.id}}').comments({
+            enableReplying: true,
+            enableEditing: false,
+            enableUpvoting: false,
+            enableDeleting: false,
+            enableDeletingCommentWithReplies: false,
+            enableAttachments: false,
+            enableHashtags: false,
+            enablePinging: false,
+            postCommentOnEnter: true,
+            forceResponsive: true,
+            profilePictureURL: '{% path app.user.fotoPerfil, 'reference' %}',
+            fieldMappings: {
+                id: 'id',
+                parent: 'parent',
+                created: 'created',
+                modified: 'modified',
+                content: 'content',
+                file: 'file',
+                fileURL: 'fileURL',
+                fileMimeType: 'fileMimeType',
+                pings: 'pings',
+                creator: 'creator',
+                fullname: 'fullname',
+                profileURL: 'profileURL',
+                profilePictureURL: 'profilePictureURL',
+                createdByAdmin: 'createdByAdmin',
+                createdByCurrentUser: 'createdByCurrentUser',
+                upvoteCount: 'upvoteCount',
+                userHasUpvoted: 'userHasUpvoted'
+            },
+            getComments: function (success, error) {
+                var formData = new FormData();
+                formData.append('action', '{{action.id}}');
+
+                $.ajax({
+                    type: "POST",
+                    data: formData,
+                    url: "{{ path('getActionComments') }}",
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    /*     complete: function (commentsArray) {
+                     var out = '';
+                     var obj = commentsArray;
+                     for (var i in obj) {
+                     out += i + ": " + obj[i] + "\n";
+                     }
+                     alert(out);
+                     },
+                     */
+                    success: function (commentsArray) {
+                        for (var counter = 0; counter < commentsArray.length; counter++) {
+                            var comment = commentsArray[counter];
+                            if (comment.parent == 0) {
+                                comment.parent = null;
+                            }
+                        }
+                        success(commentsArray);
+                    }
+                });
+            },
+            postComment: function (commentJSON, success, error) {
+                var formData = new FormData();
+                formData.append('action', '{{action.id}}');
+                formData.append('content', commentJSON.content);
+                formData.append('parent', commentJSON.parent);
+
+                $.ajax({
+                    type: "POST",
+                    data: formData,
+                    url: "{{ path('commentAjax') }}",
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    cache: false
+                });
+                success(commentJSON);
+            }
+        });
+    });
+
+</script>
+
+
+<div class="comandosTimeline">
+    <div class="comandoCurtir">
+        <form name="curtir" method="post" action="{{ path('curtirAjax') }}" enctype="multipart/form-data">
+            <span id="curtirSpan" class="glyphicon glyphicon-thumbs-up"> Curtir</span>
+            <input type="hidden" name="action" value="{{action.id}}">
+        </form>
+    </div>
+</div>
+<div id="comments-container{{action.id}}">
+</div>

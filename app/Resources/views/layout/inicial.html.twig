@@ -1,0 +1,112 @@
+
+<html>
+    <head>
+        <title>Programming Game</title>
+
+        <link rel="icon" href="{{ asset('images/icone.jpg')}}">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="stylesheet" href="{{ asset('bootstrap3/css/bootstrap.min.css') }} ">
+
+        <link rel="stylesheet" href="{{ asset('bootstrap3/css/bootstrap-theme.min.css') }}">
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('viimaComments/css/jquery-comments.css') }}">
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('font-awesome-4.7.0/css/font-awesome.min.css') }}">
+      <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('fonts/iconic/css/material-design-iconic-font.min.css') }}">
+      <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('vendor/animate/animate.css') }}">
+      <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('vendor/css-hamburgers/hamburgers.min.css') }}">
+      <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('vendor/animsition/css/animsition.min.css') }}">
+      <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('vendor/select2/select2.min.css') }}">
+      <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+      <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/util.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('sweetalert/dist/sweetalert.css') }}">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {% block javaScript %}
+
+            <script src="{{ asset('js/dropzone.js') }}"></script>
+
+            <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+
+            <script src="{{ asset('js/cidades-estados/cidades-estados-utf8.js') }}"></script>
+
+            <script src="{{ asset('bootstrap3/js/bootstrap.min.js') }}"></script>
+
+            <script src="{{ asset('jQueryFileUpload/js/vendor/jquery.ui.widget.js') }}"></script>
+            <script src="{{ asset('jQueryFileUpload/js/jquery.iframe-transport.js') }}"></script>
+            <script src="{{ asset('jQueryFileUpload/js/jquery.fileupload.js') }}"></script>
+            <script src="{{ asset('sweetalert/dist/sweetalert.min.js')}}"></script>
+
+            <script type="text/javascript" src="{{ asset('viimaComments/js/jquery-comments.js') }}"></script>
+
+            <script>
+                function somenteNumero(num) {
+                    var er = /[^0-9]/;
+                    er.lastIndex = 0;
+                    var campo = num;
+                    if (er.test(campo.value)) {
+                        campo.value = "";
+                    }
+                }
+            </script>
+
+            <script>
+                jQuery(function () {
+                    var isVisible = false;
+
+                    var hideAllPopovers = function () {
+                        $('[data-toggle="popover"]').each(function () {
+                            $(this).popover('hide');
+                        });
+                    };
+
+                    $('[data-toggle="popover"]').popover({
+                        html: true,
+                        trigger: 'manual',
+                        container: 'body'
+                    }).on('click', function (e) {
+                        // if any other popovers are visible, hide them
+                        if (isVisible) {
+                            hideAllPopovers();
+                        }
+
+                        $(this).popover('show');
+
+                        // handle clicking on the popover itself
+                        $('.popover').off('click').on('click', function (e) {
+                            e.stopPropagation(); // prevent event for bubbling up => will not get caught with document.onclick
+                        });
+
+                        isVisible = true;
+                        e.stopPropagation();
+                    });
+
+
+                    $(document).on('click', function (e) {
+                        hideAllPopovers();
+                        isVisible = false;
+                    });
+                });
+            </script>
+        {% endblock %}
+
+
+    </head>
+
+    <body class="corPrincipal" style="overflow-x: hidden">
+        {% block conteudoInicial %}
+        {% endblock %}
+    </body>
+</html>

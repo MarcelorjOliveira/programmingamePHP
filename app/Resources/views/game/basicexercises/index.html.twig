@@ -1,0 +1,30 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="col-sm-auto">
+      title
+    </div>
+       <form action=" Routes.basicExercisesAct" name="formBasicExercises" method="post" onsubmit="putValue()">
+            <div name="resolution" id="editor">resolutionParam</div>
+            <script src="/resources/acebuilds/ace.js"></script>
+      <script src="/resources/acebuilds/ext-statusbar.js"></script>
+            <p id ="buttonSubmit">
+                    <input type="hidden" name="resolution" id="resolution">
+                    <input type="submit" value="Enviar"/>
+            </p>
+</main>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script>
+                function putValue() {
+                    var inputHidden = document.getElementById("resolution");
+                    inputHidden.value = editor.getValue();
+                    return 0;
+                }
+</script>
+
+<script>
+  var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/eclipse");
+    editor.getSession().setMode("ace/mode/c_cpp");
+</script>

@@ -1,0 +1,49 @@
+{% for gallery in galleries %}
+    <div class="linhaGaleria">
+        <div class="holdGaleriaImagensVideos">
+            <a class="" data-toggle="modal" data-target="#modalGaleria{{loop.index0}}">
+                {% thumbnail gallery.galleryHasMedias|first, 'small'  %}
+            </a>
+
+            <div class="detalheGaleria">
+                <div class ="textoGaleria">
+                    <a class="tituloTextoGaleria" data-toggle="modal" data-target="#modalGaleria{{loop.index0}}">{{ gallery.name }}</a>
+                    <div class ="subtituloTextoGaleria">{{gallery.galleryHasMedias|length}} foto</div>
+                </div>
+            </div>
+        </div>
+
+        <div id ="modalGaleria{{loop.index0}}" class="modal fade" role="dialog"> 
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Galeria</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="carouselGaleria{{loop.index0}}" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner" role="listbox">
+                                {% for item in gallery.galleryHasMedias %}
+                                    <div class="item {% if item == gallery.galleryHasMedias|first %} active {% endif %}">
+                                        {% thumbnail item.media, 'small' %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="left carousel-control" href="#carouselGaleria{{loop.index0}}" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#carouselGaleria{{loop.index0}}" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}   

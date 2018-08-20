@@ -1,0 +1,36 @@
+<div>
+    <a class="" data-toggle="modal" data-target="#modalPerfil{{perfil.id}}">
+        <img src="{% path perfil, 'reference'  %}">
+    </a>
+</div>
+
+<div id ="modalPerfil{{perfil.id}}" class="modal fade" role="dialog"> 
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Foto</h4>
+            </div>
+            <div class="modal-body">
+                <div id="carouselPerfil{{perfil.id}}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                {% thumbnail perfil, 'small' %}
+                            </div>
+                    </div>
+                    <a class="left carousel-control" href="#carouselPerfil{{perfil.id}}" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carouselPerfil{{perfil.id}}" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

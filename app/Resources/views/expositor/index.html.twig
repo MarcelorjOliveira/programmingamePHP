@@ -1,0 +1,62 @@
+{% extends 'layout/inicial.html.twig' %}
+{% block conteudoInicial%}
+<script>
+/*
+$(document).ready(function(){
+
+	function limpa_formulario_cep() {
+		$("#expositor_form_Endereco").val("");
+        $("#expositor_form_Bairro").val("");
+        $("#expositor_form_Cidade").val("");
+        $("#expositor_form_UF").val("");			
+	}
+	
+	$("#expositor_form_CEP").blur( function (){
+		var cep = $(this).val().replace(/\D/g, '');
+
+    	//Verifica se campo cep possui valor informado.
+      	if (cep != "") {
+
+                    //Expressão regular para validar o CEP.
+                    var validacep = /^[0-9]{8}$/;
+
+                    //Valida o formato do CEP.
+                    if(validacep.test(cep)) {
+						var cep = $("#expositor_form_CEP").val();		
+						$.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+							 if (!("erro" in dados)) {
+                                //Atualiza os campos com os valores da consulta.
+                                $("#expositor_form_Endereco").val(dados.logradouro);
+                                $("#expositor_form_Bairro").val(dados.bairro);
+                                $("#expositor_form_Cidade").val(dados.localidade);
+                                $("#expositor_form_UF").val(dados.uf);
+                            } //end if.
+                            else {
+                                //CEP pesquisado não foi encontrado.
+                                limpa_formulario_cep();
+                                alert("CEP não encontrado.");
+                            }				
+						});
+					}
+					else {
+						limpa_formulario_cep();
+						alert("CEP em formato inválido");
+					}
+		}
+	});
+});
+*/
+</script>
+    <div class="row" id="topo">
+        <div class="col-lg-12">
+            <div align = "center" id="cadastroInicioBusiness">				
+                <h1>Cadastre-se no <img id="imagemBusinessCadastro" src="{{ asset('images/holdbusiness.png') }}"> </h1> 
+            </div>				
+        </div>		
+    </div>
+
+    <div class="row">
+        {{ include ('layout/cadastroCentralizado.html.twig', {'tituloCentralizado': ''}) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% block timelineBox %}
+
+    <style type="text/css">    
+        .timelineBox {
+            background: #fff;
+            width: 100%;
+            padding: 12px 12px;
+            margin-bottom: 15px;
+        }
+
+    </style>
+    <div class="timelineBox">
+        {% block timelineView %}
+            <hr>
+            {% block timelineCommands %}
+                {% include 'timeline/comandos/comandos.html.twig' %}
+            {% endblock %}
+        {% endblock %}
+    </div>
+{% endblock %}

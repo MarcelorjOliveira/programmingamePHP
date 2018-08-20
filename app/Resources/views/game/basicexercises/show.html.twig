@@ -1,0 +1,29 @@
+{% extends 'layout/game.html.twig' %}
+{% block mainContent %}
+
+<div class="col-sm-auto">
+{{ app.session.get('exercise').statement }}
+</div>
+   <form action="{{ path('gameIndex')}}/basicexercises/mark" name="formBasicExercises" method="post" onsubmit="putValue()">
+        <div name="resolution" id="editor"></div>
+
+        <script src="{{ asset('acebuilds/ace.js')}}"></script>
+        <script src="{{ asset('acebuilds/ext-statusbar.js')}}"></script>
+        <p id ="buttonSubmit">
+                <input type="hidden" name="resolution" id="resolution">
+                <input type="submit" value="Enviar"/>
+        </p>
+        <script>
+                        function putValue() {
+                            var inputHidden = document.getElementById("resolution");
+                            inputHidden.value = editor.getValue();
+                            return 0;
+                        }
+        </script>
+        <script>
+          var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/eclipse");
+            editor.getSession().setMode("ace/mode/c_cpp");
+      </script>
+
+{% endblock %}

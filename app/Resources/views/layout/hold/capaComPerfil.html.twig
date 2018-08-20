@@ -1,0 +1,173 @@
+{#
+Modelo
+
+
+
+<style type="text/css">
+    #topoPerfil{
+        width: 688px;
+    }
+
+    #capaPerfil {
+        background-color : #ab0000;
+        background-size : cover;
+        height: 60%;
+    }
+
+    #rostoPerfil {
+        position: relative;
+        top: 15em;
+        left: 1.5em;
+        width: 9em;
+        height: 12em;
+    }
+
+    #menuPerfil{
+        width: inherit;
+    }
+
+    #navBarPerfil {
+        background-color: #FFFFFF;
+        font-size: 1em;
+        font-weight: bold;
+    }
+
+</style>
+#}
+
+<style type="text/css">
+    #menuPerfil {
+        text-align:center;
+    }
+
+    .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }
+
+    .navbar{
+        text-align: center;
+    }
+
+    #capaPerfil {
+        height: 60vh;
+        background-image: url('{% path capa, 'reference' %}' );
+        background-size: 100% auto;
+        z-index: 1;
+    }
+
+    #rostoPerfil {
+        width: 120px;
+        height: 160px;
+        z-index: 2;
+    }
+
+    .botaoPesquisa {
+        position: absolute;
+        top: 40vh;
+        right: 5vw;
+        z-index: 2;
+    }
+
+
+    @media (min-width: 320px) and (max-width: 767px) {
+        #capaPerfil {
+            height: 160px;
+        }
+
+
+    }
+
+</style>
+
+<script>
+    $(document).ready(function () {
+        $("#rostoPerfil").on("click", function () {
+            $("#perfilProjetoFile").click();
+        });
+
+        $('#perfilProjetoFile').on("change", function () {
+            $('form[name=atualizarPerfilProjeto]').submit();
+        });
+
+    {% if objetoPin is defined %}
+        {% for project in app.user.projects %}
+            {% if objetoPin == project %}
+                    $("#capaPerfil").on("click", function () {
+                        window.location = '{{ path('projectresumoupdateindex', {project: objetoPin.id}) }}';
+                    });
+            {% endif %}
+        {% endfor %}
+    {% else %}
+            $("#capaPerfil").on("click", function () {
+                $("#capaPerfilFile").click();
+            });
+    {% endif %}
+            $("#rostoPerfil").on("click", function () {
+                $("#rostoPerfilFile").click();
+            });
+
+            $("#capaPerfil").on("click", function () {
+                $("#capaPerfilFile").click();
+            });
+
+            $('#rostoPerfilFile').on("change", function () {
+                $('form[name=atualizarFotoPerfil]').submit();
+            });
+
+            $('#capaPerfilFile').on("change", function () {
+                $('form[name=atualizarCapaPerfil]').submit();
+            });
+
+        });
+
+</script>
+
+<div id = "topoPerfil">
+
+    {% if objetoPin is defined %}
+        {% for project in app.user.projects %}
+            {% if objetoPin == project %}
+                <form method="POST" id="atualizarPerfilProjeto" name="atualizarPerfilProjeto" action="{{ path('atualizarPerfilProjeto', {'id' : objetoPin.id} ) }}" enctype="multipart/form-data">
+                    <input id="perfilProjetoFile" name="perfilProjetoContent" style="display: none" type="file"/>
+                </form>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% if objetoSymfonyUser is defined and objetoSymfonyUser == app.user %}
+            <form method="POST" id="atualizarFotoPerfil" name="atualizarFotoPerfil" action="{{ path('atualizarFotoPerfil', {'id' : app.user.id} ) }}" enctype="multipart/form-data">
+                <input id="rostoPerfilFile" name="rostoPerfilContent" style="display: none" type="file"/>
+            </form>
+
+            <form method="POST" id="atualizarCapaPerfil" name="atualizarCapaPerfil" action="{{ path('atualizarCapaPerfil', {'id' : app.user.id} ) }}" enctype="multipart/form-data">
+                <input id="capaPerfilFile" name="capaPerfilContent" style="display: none" type="file"/>
+            </form>
+        {% endif %}
+    {% endif %}
+
+    <div id = "capaPerfil" class="clearfix">
+    </div>
+    <div id="rostoPerfil" style="background-image: url('{% path perfil, 'reference' %}') ; background-size: 100% 100%">
+    </div>
+
+    {% if not objetoPin is defined %}
+        {% if objetoSymfonyUser != app.user %}
+            <div class="botaoPesquisa">
+                <form name="formAmizade{{objetoSymfonyUser.id}}" id="formAmizade{{objetoSymfonyUser.id}}" method="post" action = "{{path('criarConexao')}}">
+                    <input type="hidden" name="destino" value="{{objetoSymfonyUser.id}}">
+                    <button id="botao{{objetoSymfonyUser.id}}" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>{{objetoSymfonyUser.descricaoStatusConexao}}</button>
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <div id="menuPerfil">
+        <nav id="navbarPerfil" class="navbar navbar-pills" role="navigation">
+            <ul class="nav navbar-nav">
+                {% for link in links %}
+                    <li><a href="{{ link.nome}}">{{link.descricao}}</a></li>
+                    {% endfor %}
+            </ul>
+        </nav>
+    </div>

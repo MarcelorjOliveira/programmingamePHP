@@ -1,0 +1,46 @@
+{% extends 'layout/inicial.html.twig' %}
+{% block conteudoInicial%}
+    <script>
+        $(document).ready(function () {
+            $('#botaoMenu').click(function () {
+                $("#abaMenu").css('display', 'block');
+                $("#abaTimeline").css('display', 'none');
+                $("#abaPropaganda").css('display', 'none');
+            });
+
+        });
+
+</script>
+
+
+
+    <div class="row container-fluid" id = "principal">
+
+        <div id="holdAba">
+
+            {% block conteudoHold %}
+                {% block timeLineHold %}
+                    <div id="abaTimeline" class="col-lg-7">
+                        {% block conteudoTimeLineHold %}
+                            <div id="timelineIndex">
+                                <div id="comments-container">
+                                </div>
+                                {% for action in timeline %}
+                                    {{ render(controller('AppBundle:ActionTimeline:timeline', {'action' : action } )) }}
+                                {% endfor %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            {% endblock %}
+        </div>
+        {% block propagandaHold %}
+            <div id="abaPropaganda" class="col-lg-3">
+                <div id="canvasIndex">
+                    {{ include ('layout/hold/propagandaHold.html.twig') }}
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+
+{% endblock %}

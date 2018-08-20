@@ -1,0 +1,18 @@
+{% extends 'timeline/generalVerb.html.twig' %}
+
+{% block timelineView %}
+        <div class="actionSignature">
+            <div class ="subjectThumbnail">
+            </div>
+            <div class="actionWritten">
+                <a href="{{ path('perfil', {'id' : subject.id } ) }}">{{ subject.titulo }}</a> atualizou a capa do perfil
+            </div>
+        </div>
+        <div class="actionDetail">
+            {% include 'timeline/viewTimelineCapaPerfil.html.twig' %}
+        </div>
+
+        
+    {{ parent() }}
+
+{% endblock %}

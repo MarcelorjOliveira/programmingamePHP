@@ -1,0 +1,40 @@
+<style type="text/css">
+ 
+    #tituloCentralizado {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    #centralizado {
+        margin-top: 2vh;
+        margin-left: 25%;
+        margin-right: 25%;
+        min-height: 80vh;
+    }
+
+    @media (min-width: 320px) and (max-width: 767px){
+        #tituloCentralizado {
+            font-size: 12px;
+        }
+        
+        #centralizado {
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+    }
+
+    
+</style>
+
+<div id="centralizado">
+    {% if(tituloCentralizado) %}<p id="tituloCentralizado">{{tituloCentralizado}}</p> {% endif %} 
+    <div class = "col-sm-12" id="cadastroCentralizado">	
+        <div>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

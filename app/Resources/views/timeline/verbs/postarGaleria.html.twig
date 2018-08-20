@@ -1,0 +1,19 @@
+{% extends 'timeline/generalVerb.html.twig' %}
+
+{% block timelineView %}
+        <div class="actionSignature">
+            <div class ="subjectThumbnail">
+            </div>
+            <div class="actionWritten">
+                <a href="{{ path('projectindex', {'id' : subject.id } ) }}">{{ subject.nome }}</a> postou a galeria
+
+                <a class="" data-toggle="modal" data-target="#modalGaleria{{gallery.id}}"> {{ gallery.name }} </a>
+            </div>
+        </div>
+        <div class="actionDetail">
+            {% include 'timeline/viewTimelineGallery.html.twig' %}
+        </div>
+
+        {{ parent() }}
+
+{% endblock %}

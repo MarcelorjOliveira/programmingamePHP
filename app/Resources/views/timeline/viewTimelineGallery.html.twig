@@ -1,0 +1,38 @@
+<div>
+    <a class="" data-toggle="modal" data-target="#modalGaleria{{gallery.id}}">
+        {% thumbnail gallery.galleryHasMedias|first.media, 'small'  %}
+    </a>
+</div>
+
+<div id ="modalGaleria{{gallery.id}}" class="modal fade" role="dialog"> 
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Galeria</h4>
+            </div>
+            <div class="modal-body">
+                <div id="carouselGaleria{{gallery.id}}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        {% for item in gallery.galleryHasMedias %}
+                            <div class="item {% if item == gallery.galleryHasMedias|first %} active {% endif %}">
+                                {% thumbnail item.media, 'small' %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <a class="left carousel-control" href="#carouselGaleria{{gallery.id}}" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carouselGaleria{{gallery.id}}" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

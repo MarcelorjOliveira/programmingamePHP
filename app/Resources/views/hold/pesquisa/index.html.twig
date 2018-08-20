@@ -1,0 +1,90 @@
+{% extends 'layout/hold.html.twig' %}
+{% block conteudoTimeLineHold  %}
+    <style type="text/css">
+        .elemento {
+            display: block;	
+            background: #dddddd;
+            height: 31%;
+
+            padding: 2%;
+            margin-bottom: 1px;
+        }
+
+        .emLinha {
+            display:inline-block;
+        }
+
+        .caixaPesquisa {	
+            vertical-align: top;
+            height: 100%;
+        }
+
+        .perfilPesquisa {	
+            width: 9em;
+            height: 12em;
+        }
+
+        .rostoPesquisa {
+            width: 9em;
+            height: 12em;
+        }
+
+        .conteudoPesquisa {
+            vertical-align: top;
+            width: 25em;
+        }
+
+        .tituloPesquisa {
+            width: 10em;	
+            font-weight: bold;
+        }
+
+        .botaoPesquisa {
+        }
+
+        .regiaoBotaoPesquisa {
+            vertical-align: top;
+            text-align: right;	
+            width: 30%;
+        }
+
+        .especificacoesPesquisa {
+            vertical-align: bottom;	
+            width : 60%;
+        }
+
+    </style>
+
+    {% for item in pesquisa %}
+
+        <div class = "elemento">
+            <div class="perfilPesquisa emLinha">
+                <a href="{{ path('perfil', {id: item.id } )}}">
+                    <img class="rostoPesquisa" src="{% path item.fotoPerfilObject, 'reference' %}"></a>			
+            </div>
+            <div class="caixaPesquisa emLinha">
+                <div class="conteudoPesquisa emLinha">
+                    <div class="tituloPesquisa">
+                        <a href="{{ path('perfil', {id: item.id } )}}">{{item.titulo}}</a>			
+                    </div>	
+                </div>
+                <div class="regiaoBotaoPesquisa emLinha">
+                    {% if item != app.user %}
+                        <div class="botaoPesquisa">
+                            <form name="formAjax{{item.id}}" id="formAjax{{item.id}}" method="post" action = "{{path('criarConexao')}}">
+                                <input type="hidden" name="destino" value="{{item.id}}">				
+                                <button id="botao{{item.id}}" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>{{item.descricaoStatusConexao}}</button>
+                            </form>
+                        </div>	
+                    {% endif %}
+                </div>
+                <div class="especificacoesPesquisa">
+                    {{item.nomeClasse}}<br>	
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
+

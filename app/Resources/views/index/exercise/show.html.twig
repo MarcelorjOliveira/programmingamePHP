@@ -1,0 +1,4 @@
+<form action="{{path('markExercise')}}" name="markExercise" method="post">
+    {{app.session.get('exercise').name}}<br>
+    <textarea style="resize:none" name="code" cols="70" rows="40" resize="none" ></textarea><br>
+<input type="submit" value="Enviar"/>

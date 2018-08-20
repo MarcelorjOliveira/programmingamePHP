@@ -1,0 +1,79 @@
+{% extends 'layout/hold.html.twig' %}
+{% block conteudoHold %}
+    <div id = 'perfil'>
+        <div class='col-lg-9'>
+            <style type = "text/css">
+                #botaoPerfil {
+                    position: absolute;
+                    top: 20%;
+                    right: 8%;
+                }
+
+                #menuPerfil {
+                    width: 100%;
+                }
+
+                #rostoPerfil {
+                    position: absolute ;
+                    top: 15%;
+                    left: 8%;
+                }
+
+
+                #navBarPerfil {
+                    background-color: #FFFFFF;
+                    font-size: 1em;
+                    font-weight: bold;
+                }
+
+                @media (min-width: 320px) and (max-width: 767px) {
+                    #rostoPerfil {
+                        width: 60px;
+                        height: 90px;
+                        position: relative;
+                        top: 79px;
+                        bottom: 0;
+                        left: 0;
+
+                        margin-left: 41%;
+                        margin-right: 41%;
+                    }
+
+                    #capaPerfil {
+                        height: 169px;
+                    }
+                }
+
+            </style>
+            {{ include ('layout/hold/capaComPerfil.html.twig') }}
+            <div id="corpoPerfil">
+                <div class= "panel panel-default">
+                    <div class="panel-heading"><span id="iconeSobrePerfil"class="glyphicon glyphicon-user"></span><h3 id="tituloSobrePerfil">Sobre</h3>
+                        <a href="{{path('editarAtualizarPerfil')}}" class="glyphicon glyphicon-pencil" id="atualizarPerfil"></a></div>
+                    <div class="panel-body">
+                        <h3>Nome</h3>
+                        <hr></hr>
+                        <p>{{ app.user.titulo }}</p><br>
+                        <h3>Cidade</h3>
+                        <hr></hr>
+                        <p>{{ app.user.cidade}},{{app.user.uf}}</p><br>
+                        <h3>Data de Nascimento</h3>
+                        <hr></hr>
+                        <p>{{ app.user.dataNascimentoString}} ({{app.user.idadeString}})</p><br>
+                        <h3>Perfil</h3>
+                        <hr></hr>
+                        <p>{{app.user.regraString}}</p><br>
+                        {% if app.user.regra == 'INVESTIDOR' %}
+                            <h3>Ramo</h3>
+                            <hr></hr>
+                            <p>Esportes</p><br>	
+                        {% endif %}				
+                    </div>
+                </div>
+            </div> 		
+        </div>
+    </div>
+
+{% endblock %}
+{% block propagandaHold %}
+{% endblock %}

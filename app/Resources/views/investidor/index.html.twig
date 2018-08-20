@@ -1,0 +1,16 @@
+{% extends 'layout/inicial.html.twig' %}
+{% block conteudoInicial%}
+
+    <div class="row" id="topo">
+        <div class="col-lg-12">
+            <div align = "center" id="cadastroInicioBusiness">				
+                <h1>Cadastre-se no <img id="imagemBusinessCadastro" src="{{ asset('images/holdbusiness.png') }}"> </h1>
+            </div>				
+        </div>		
+    </div>
+
+    <div class="row">
+        {{ include ('layout/cadastroCentralizado.html.twig', {'tituloCentralizado' : ''}) }}
+    </div>
+
+{% endblock %}

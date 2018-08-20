@@ -1,0 +1,93 @@
+<style type="text/css">
+    .detalheGaleria {
+        margin: 0;
+        padding: 0;
+    }
+
+    .textoGaleria {
+        border: 1px solid #e9ebee;
+        border-top: none;
+        font-size: 11px;
+        padding: 3% 2% 3%;
+        position: relative;
+        text-align: center;
+    }
+
+    .tituloTextoGaleria {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    #itemGaleria {
+        text-align: center;
+    }
+    
+    #miniaturaGaleria {
+        width: 180px;
+    }
+
+    #imagemGaleria {
+        display: inline-block;
+    }
+    
+    .holdGaleriaImagensVideos {
+        margin-right: 1vw;
+    }
+    
+    @media (min-width: 320px) and (max-width: 767px) {
+        .holdGaleriaImagensVideos {
+            margin-bottom: 2vh;
+        }
+    }
+
+</style>
+
+<div class="holdGaleriaImagensVideos">
+    <a class="" data-toggle="modal" data-target="#modalGaleria{{gallery.id}}">
+        {% if gallery.galleryHasMedias|length > 0 %} 
+            <img id="miniaturaGaleria" src="{% path gallery.galleryHasMedias|first.media, 'reference'  %}">
+        {% endif %}
+    </a>
+
+    <div class="detalheGaleria">
+        <div class ="textoGaleria">
+            <a class="tituloTextoGaleria" data-toggle="modal" data-target="#modalGaleria{{gallery.id}}">{{ gallery.name }}</a>
+            <div class ="subtituloTextoGaleria">{{gallery.galleryHasMedias|length}} foto</div>
+        </div>
+    </div>
+</div>
+
+<div id ="modalGaleria{{gallery.id}}" class="modal fade" role="dialog"> 
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{gallery.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <div id="carouselGaleria{{gallery.id}}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        {% for item in gallery.galleryHasMedias %}
+                            <div id="itemGaleria" align="center" class="item {% if item == gallery.galleryHasMedias|first %} active {% endif %}">
+                                <img id="imagemGaleria" src="{% path item.media, 'reference' %}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <a class="left carousel-control" href="#carouselGaleria{{gallery.id}}" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="right carousel-control" href="#carouselGaleria{{gallery.id}}" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Próximo</span>
+                    </a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,209 @@
+<style type="text/css">
+
+    #botaoCriarGaleria {
+        float: right;
+    }
+
+    .photoGalleryPreview {
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+    }
+
+    .imageContainer {
+        float: left;
+        min-width: 34vh;
+        min-height: 40vh;
+        border: 1px solid #dddddd;
+        margin: 1vh;
+        text-align: center;
+    }
+
+    .galleryPublish {
+        background-color: #d8eafd;
+        width: 100%;
+    }
+
+    #progress .bar {
+        height: 18px;
+        background: green;
+    }
+
+    .imagePreview {
+        margin-top: 1vh;
+        margin-left: 1vh;
+        width: 32vh;
+        height: 38vh;
+    }
+
+    #galeriaFormModal {
+        width: 100%;
+        margin: 0;
+    }
+
+    #galeriaFormModalHeader {
+        background-color: #ddd;
+    }
+
+    #galeriaFormModalBody{
+        height: 75vh;
+        padding: 0;
+        top:0;
+        left:0;
+    }
+
+    #galeriaFormModalMenuWrapper {
+        width: 25vw;
+        height: 100%;
+        float: left;
+        background-color: #ddd;
+    }
+
+    #galeriaFormModalMenuContainer {
+        margin: 1em;
+    }
+
+    .galeriaFormInputText {
+        width: 100%;
+    }
+
+    #galeriaFormPhotoContainer {
+        width: 74vw;
+        float: left;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    #galeriaFormAddButton {
+        font-size: 72px;
+        color:#729fcf;
+        line-height: 40vh;
+    }
+
+    @media (min-width: 320px) and (max-width: 767px) {
+        #galeriaFormModalBody {
+            height: 100%;
+            display: table;
+        }
+
+        #galeriaFormModalMenuWrapper {
+            width: 100vw;
+            height: 35vh;
+            float: left;
+            background-color: #ddd;
+        }
+
+        #galeriaFormPhotoContainer {
+            height: auto;
+        }
+
+        .photoGalleryPreview {
+            height: 100%;
+        }
+
+        .modal-dialog {
+            width: 100vw;
+        }
+
+        #botaoPublicar {
+            float: left;
+        }
+
+    }
+
+</style>
+
+<script>
+
+    $(document).ready(function ()
+    {
+    $('#fileupload').fileupload({
+    formData: {
+    user:{{app.user.id}}
+    },
+            add: function(e, data) {
+            $("#uploaded").append("<div id='temporary' class='imageContainer' style='position: relative'>  <div id='progress' >"
+                    + "<div class='bar' style='width: 0%; position: absolute; bottom:0; left:0'></div>"
+                    + "</div> </div>");
+            data.submit();
+            },
+            progress: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css(
+                    'width',
+                    progress + '%'
+                    );
+            },
+            /*        complete: function (e, data) {
+             var out = '';
+             var obj = data;
+             for (var i in obj) {
+             out += i + ": " + obj[i] + "\n";
+             }
+             alert(out);
+             },
+             */
+            done: function (e, data) {
+            $("#temporary").remove();
+            if (data.files && data.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+            $('#uploaded').append("<div id='imageNumber' class='imageContainer'><img class='imagePreview' src='" + e.target.result + "'></div>");
+            }
+            reader.readAsDataURL(data.files[0]);
+            }
+            /*                    var out = '';
+             var obj = data;
+             for (var i in obj) {
+             out += i + ": " + obj[i] + "\n";
+             }
+             alert(out);
+             */
+            }
+    });
+    });
+
+</script>
+
+<a id="botaoCriarGaleria" class="btn btn-default" data-toggle="modal" data-target="#criarGaleriaModal">
+    Criar Galeria
+</a>
+
+<div id ="criarGaleriaModal" class="modal fade" role="dialog">
+    <form name="galeriaForm" method="POST" id="galeriaForm" action="{{ path('criarFotosProject', {'id' : objetoProject.id} ) }}" enctype="multipart/form-data">
+        <div class="modal-dialog" id="galeriaFormModal">
+            <div class="modal-content">
+                <div id="galeriaFormModalHeader" class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Criar Galeria</h4>
+                </div>
+                <div id="galeriaFormModalBody" class="modal-body">
+                    <div id="galeriaFormModalMenuWrapper">
+                        <div id="galeriaFormModalMenuContainer">
+                            <label class="control-label">Título</label>
+                            <input class="galeriaFormInputText" name="tituloGaleria" type="text" placeHolder="Galeria sem título"><br><br>
+                            <label class="control-label">Descrição</label>
+                            <input class="galeriaFormInputText" name="descricaoGaleria" type="text" placeHolder="Escreva algo sobre a galeria">
+                        </div>
+                    </div>
+                    <div id="galeriaFormPhotoContainer">
+                        <div class="photoGalleryPreview">
+                            <div id="uploaded">
+                            </div>
+                            <div class="imageContainer">
+                                <label for="fileupload">
+                                    <span id="galeriaFormAddButton" class="glyphicon glyphicon-plus"></span>
+                                </label>
+                                <input id="fileupload" type="file" name="uploadFiles[]"
+                                       data-url="{{ oneup_uploader_endpoint('gallery') }}"
+                                       multiple style="display:none"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer galleryPublish">
+                    <button id="botaoPublicar" type="submit" class="btn btn-default">Publicar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

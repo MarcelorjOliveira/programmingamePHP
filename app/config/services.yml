@@ -1,0 +1,34 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+     admin.usuario:
+          class: AppBundle\Admin\UsuarioAdmin
+          arguments: [~, AppBundle\Entity\Usuario, ~]
+          tags:
+               - { name: sonata.admin, manager_type: orm, label: Usuario }
+     
+     admin.conexao:
+          class: AppBundle\Admin\ConexaoAdmin
+          arguments: [~, AppBundle\Entity\Conexao, ~]
+          tags:
+               - { name: sonata.admin, manager_type: orm, label: Conexão }
+
+     spyspread: 
+         class: AppBundle\Spread\UserSpread
+         tags:
+               - { name: spy_timeline.spread }
+     entity_service:
+         class: AppBundle\ClassServices\EntityDb
+         arguments: [@doctrine.orm.entity_manager] 
+         
+     app.media_upload_listener:
+         class: AppBundle\ClassServices\UploadListener
+         arguments: [@doctrine.orm.entity_manager]
+         tags:
+             - { name: 'kernel.event_listener', event: oneup_uploader.post_persist, method: onUpload }

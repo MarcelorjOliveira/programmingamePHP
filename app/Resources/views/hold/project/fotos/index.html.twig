@@ -1,0 +1,84 @@
+{% extends 'layout/hold.html.twig' %}
+
+{% block timeLineHold %}
+    <div class="col-lg-7">					
+        {% block conteudoTimeLineHold %}
+            <style type="text/css">
+                #topoPerfil{
+                    width: 100%;
+                }
+
+                #capaPerfil {				
+                    height: 60vh;
+                }
+
+                #rostoPerfil {
+                    position: absolute;
+                    top: 34vh;
+                    left: 5vw;
+                }
+
+                #menuPerfil{
+                    width: inherit;
+                }
+
+                #navBarPerfil {
+                    background-color: #FFFFFF;
+                    font-size: 1em;
+                    font-weight: bold;
+                }
+
+                .linhaGaleria { float: left;}
+
+                @media (min-width: 320px) and (max-width: 767px) {
+                    #rostoPerfil {
+                        width: 60px;
+                        height: 90px;
+                        position: relative;
+                        top: 79px;
+                        bottom: 0;
+                        left: 0;
+
+                        margin-left: 41%;
+                        margin-right: 41%;
+                    }
+
+                    #capaPerfil {
+                        height: 169px;
+                    }
+                    
+                    .panel-body {
+                        text-align: center;
+                    }
+                    
+                    .linhaGaleria {
+                        display: inline-block;
+                    }
+                }
+
+
+
+            </style>
+            <div id = 'projeto'>
+                {{ include ('layout/hold/capaComPerfil.html.twig') }}
+                <div id="corpoProjeto">
+                    <div class= "panel panel-default">
+                        <div class="panel-heading"><span id="iconeSobreProjeto"class="glyphicon glyphicon-user"></span><h3 id="tituloSobreProjeto">Fotos</h3>
+                                {% include 'layout/hold/galeria/botaoCriar.html.twig' %}
+                        </div>
+                        <div class="panel-body">  
+                            {% for gallery in galleries %}
+                                <div class="linhaGaleria">
+                                    {% include 'layout/hold/galeria/viewGallery.html.twig' %}
+                                </div>			
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div> 		
+            </div>
+
+        {% endblock %}
+    </div>
+{% endblock %}
+
+

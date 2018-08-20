@@ -1,0 +1,64 @@
+{{ include ('layout/hold.html.twig') }}
+
+{% for solicitacao in solicitacoes %} 
+    {% set usuario = solicitacao.usuarioOrigem %}
+    <script>
+        swal({
+            title: "{{usuario.titulo}}",
+            text: "Deseja aceitar a amizade?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Confirmar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false
+        }, function (amizadeAceita) {
+            if (amizadeAceita) {
+
+                var formData = new FormData();
+                formData.append('solicitou', '{{usuario.id}}');
+                $.ajax({
+                    type: "POST",
+                    data: formData,
+                    url: "{{ path('aceitarConexao') }}",
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (response) {
+                        swal({
+                            title: "{{usuario.titulo}}",
+                            text: "Amizade aceita com sucesso",
+                            type: "success"
+                        });
+                    }
+                });
+            } else {
+                var formData = new FormData();
+                formData.append('solicitou', '{{usuario.id}}');
+
+                $.ajax({
+                    type: "POST",
+                    data: formData,
+                    url: "{{ path('cancelarConexao') }}",
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (response) {
+                        swal({
+                            title: "{{usuario.titulo}}",
+                            text: "Amizade desfeita com sucesso",
+                            type: "info"
+                        });
+                    }
+                });
+            }
+
+        }
+        );
+    </script>
+{% endfor %}
+
+
+
